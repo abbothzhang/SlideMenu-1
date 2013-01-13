@@ -12,8 +12,10 @@ import android.util.AttributeSet;
 import android.view.*;
 import android.view.animation.Interpolator;
 import android.widget.*;
-
-public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItemClickListener
+/**
+ * View with slide to right content and menu panel behind it
+ */
+public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItemClickListener, View.OnTouchListener
 {
   private static final int MAX_SETTLE_DURATION = 600; // ms
   private static final int INVALID_POINTER = -1;
@@ -96,6 +98,7 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     panel.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     panel.setId(R.id.content_panel);
     panel.setBackgroundColor(Color.WHITE);
+    panel.setOnTouchListener(this);
     _mScrollPanel.addView(panel);
 //////
     _mScroller = new Scroller(context, _sInterpolator);
@@ -301,5 +304,10 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
         _mManager.beginTransaction().replace(R.id.content_panel,fragment).commit();
     }
     startSmoothScroll(0,0);
+  }
+
+  public boolean onTouch(final View view, final MotionEvent motionEvent)
+  {
+    return true;
   }
 }
