@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item type="id" name="navigation_list"/>
+  <item type="id" name="content_panel"/>
+  <item type="id" name="scroll_panel"/>
+</resources>
