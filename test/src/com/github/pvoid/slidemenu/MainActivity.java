@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ListFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity
@@ -39,6 +41,9 @@ public class MainActivity extends FragmentActivity
     @Override
     public Fragment getFragment(final int position, final long id)
     {
+      if(position==4)
+        return new TestFragment2();
+
       Bundle arguments = new Bundle();
       arguments.putInt("index",position+1);
       Fragment fragment = new TestFragment();
@@ -88,4 +93,18 @@ public class MainActivity extends FragmentActivity
       return view;
     }
   }
+
+  private static class TestFragment2 extends ListFragment
+  {
+    @Override
+    public void onViewCreated(final View view, final Bundle savedInstanceState)
+    {
+      super.onViewCreated(view, savedInstanceState);
+      ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), R.layout.simple_list_item_1);
+      for(int index=0;index<20;++index)
+        adapter.add("Content line "+(index+1));
+      setListAdapter(adapter);
+    }
+  }
+
 }

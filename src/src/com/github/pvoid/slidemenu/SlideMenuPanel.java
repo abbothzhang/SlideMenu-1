@@ -1,6 +1,7 @@
 package com.github.pvoid.slidemenu;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -45,28 +46,44 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
       return t * t * t * t * t + 1.0f;
     }
   };
-
+  /**
+   * Constructor
+   * @param context context for vew
+   */
   public SlideMenuPanel(Context context)
   {
     super(context);
 ///// Setting up main UI
     setupUI(context);
   }
-
+  /**
+   * Constructor
+   * @param context context for vew
+   * @param attrs   attributes for view from xml file
+   */
   public SlideMenuPanel(Context context, AttributeSet attrs)
   {
     super(context, attrs);
 ///// Setting up main UI
     setupUI(context);
   }
-
+  /**
+   * Constructor
+   * @param context  context for vew
+   * @param attrs    attributes for view from xml file
+   * @param defStyle theme for view
+   */
   public SlideMenuPanel(Context context, AttributeSet attrs, int defStyle)
   {
     super(context, attrs, defStyle);
 ///// Setting up main UI
     setupUI(context);
   }
-
+  /**
+   * Define adapter for menu and content
+   * @param adapter
+   * @param manager
+   */
   public void setAdapter(SlideMenuAdapter adapter, FragmentManager manager)
   {
     _mAdapter = adapter;
@@ -75,8 +92,6 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     if(list!=null)
       list.setAdapter(adapter);
   }
-
-
 
   protected void setupUI(Context context)
   {
@@ -97,7 +112,10 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     FrameLayout panel = new FrameLayout(context);
     panel.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     panel.setId(R.id.content_panel);
-    panel.setBackgroundColor(Color.WHITE);
+////// Setting up background color
+    TypedArray attrs = context.getTheme().obtainStyledAttributes(new int[] {android.R.attr.colorBackground});
+    panel.setBackgroundColor(attrs.getColor(0, Color.RED));
+    attrs.recycle();
     panel.setOnTouchListener(this);
     _mScrollPanel.addView(panel);
 //////
