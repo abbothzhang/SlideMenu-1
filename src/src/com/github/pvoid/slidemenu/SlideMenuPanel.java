@@ -50,6 +50,7 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
    * Constructor
    * @param context context for vew
    */
+  @SuppressWarnings("unused")
   public SlideMenuPanel(Context context)
   {
     super(context);
@@ -61,6 +62,7 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
    * @param context context for vew
    * @param attrs   attributes for view from xml file
    */
+  @SuppressWarnings("unused")
   public SlideMenuPanel(Context context, AttributeSet attrs)
   {
     super(context, attrs);
@@ -73,6 +75,7 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
    * @param attrs    attributes for view from xml file
    * @param defStyle theme for view
    */
+  @SuppressWarnings("unused")
   public SlideMenuPanel(Context context, AttributeSet attrs, int defStyle)
   {
     super(context, attrs, defStyle);
@@ -81,8 +84,8 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
   }
   /**
    * Define adapter for menu and content
-   * @param adapter
-   * @param manager
+   * @param adapter adapter for menu and content
+   * @param manager fragment manager. Will be used for attaching fragment
    */
   public void setAdapter(SlideMenuAdapter adapter, FragmentManager manager)
   {
@@ -92,7 +95,10 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     if(list!=null)
       list.setAdapter(adapter);
   }
-
+  /**
+   * Create view appearance
+   * @param context context for view
+   */
   protected void setupUI(Context context)
   {
     final ViewConfiguration configuration = ViewConfiguration.get(context);
@@ -123,7 +129,11 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     _mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
     _mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
   }
-
+  /**
+   * Measure view size
+   * @param widthMeasureSpec specs for width
+   * @param heightMeasureSpec specs for height
+   */
   @Override
   protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec)
   {
@@ -135,7 +145,11 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     params.setMargins(0,0,_mPanelWidth,0);
     list.setLayoutParams(params);
   }
-
+  /**
+   * Capture all childs touch events
+   * @param ev touch event
+   * @return true to dismiss all subsequent touch events
+   */
   @Override
   public boolean onInterceptTouchEvent(final MotionEvent ev)
   {
@@ -178,7 +192,11 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
 //////
     return _mProcessMove;
   }
-
+  /**
+   * Touch event occurred
+   * @param event touch event
+   * @return true if we process event
+   */
   @Override
   public boolean onTouchEvent(final MotionEvent event)
   {
@@ -259,7 +277,9 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
 ////// We will process event
     return true;
   }
-
+  /**
+   * Stops slide panel drag
+   */
   private void endDrag()
   {
     _mProcessMove = false;
@@ -271,7 +291,11 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
       _mVelocityTracker = null;
     }
   }
-
+  /**
+   * Starts smooth scroll to target x
+   * @param targetX  scroll target
+   * @param velocity scroll velocity
+   */
   private void startSmoothScroll(int targetX, int velocity)
   {
     if(_mScrollPanel!=null)
@@ -296,7 +320,9 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
       ViewCompat.postInvalidateOnAnimation(_mScrollPanel);
     }
   }
-
+  /**
+   * Compute scroll position
+   */
   @Override
   public void computeScroll()
   {
@@ -312,7 +338,13 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
         _mScroller.forceFinished(true);
     }
   }
-
+  /**
+   * Click on menu item
+   * @param adapterView list with menu items
+   * @param view tapped view
+   * @param index menu item index
+   * @param id menu item id
+   */
   public void onItemClick(final AdapterView<?> adapterView, final View view, final int index, final long id)
   {
     if(_mAdapter!=null && _mManager!=null)
@@ -323,7 +355,12 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
     }
     startSmoothScroll(0,0);
   }
-
+  /**
+   * Touch event occurred
+   * @param view touched view
+   * @param motionEvent touch event
+   * @return always true
+   */
   public boolean onTouch(final View view, final MotionEvent motionEvent)
   {
     return true;
