@@ -164,6 +164,10 @@ public class SlideMenuPanel extends RelativeLayout implements AdapterView.OnItem
       _mProcessMove = false;
       _mIgnoreMove = false;
       _mScroller.abortAnimation();
+      /// Check if user touch opened slide panel
+      int panelLeft = getMeasuredWidth()-_mPanelWidth;
+      if(_mInitialX<0 && _mLastX>panelLeft)
+        _mProcessMove = true;
     }
     else if(action==MotionEvent.ACTION_MOVE && _mPointerId!=INVALID_POINTER && !_mIgnoreMove)
     {
